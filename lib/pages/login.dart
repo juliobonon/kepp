@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kepp/services/auth.dart';
 import 'package:kepp/components/input.dart';
 import 'package:kepp/services/emailValidator.dart';
 import 'package:kepp/components/keppButton.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   Login({this.auth, this.onSignedIn, this.validator});
@@ -31,19 +31,19 @@ class _LoginState extends State<Login> {
     if (validateForm()) {
       if (_formType == FormType.login) {
         try {
-          User userId = await widget.auth
+          String status = await context
+              .read<Auth>()
               .signInWithEmailAndPassword(_email.text, _password.text);
-          print("Signed in: " + userId.uid);
-          widget.onSignedIn();
+          print('Status: ' + status);
         } catch (e) {
           print(e);
         }
       } else {
         try {
-          User userId = await widget.auth
+          String status = await context
+              .read<Auth>()
               .createUserWithEmailandPassword(_email.text, _password.text);
-          print('Signed in: ' + userId.uid);
-          widget.onSignedIn();
+          print('Status: ' + status);
         } catch (e) {
           print(e);
         }
@@ -100,13 +100,11 @@ class _LoginState extends State<Login> {
                   name: "Email",
                   obscureText: false,
                   controller: _email,
-                  validator: validator.validateEmail,
                 ),
                 InputBox(
                   name: "Password",
                   obscureText: true,
                   controller: _password,
-                  validator: validator.validatePassword,
                 ),
                 SizedBox(height: 50),
                 Row(
@@ -135,8 +133,15 @@ class _LoginState extends State<Login> {
                           _formType = FormType.register;
                         });
                       },
-                    )
+                    ),
                   ],
+                ),
+                TextButton(
+                  child: Text(
+                    "Click here to continue without an account",
+                    style: TextStyle(color: Color(0xFF556678)),
+                  ),
+                  onPressed: () {},
                 ),
               ],
             ),
@@ -165,25 +170,21 @@ class _LoginState extends State<Login> {
                   name: "User",
                   obscureText: false,
                   controller: _user,
-                  validator: validator.validatePassword,
                 ),
                 InputBox(
                   name: "Email",
                   obscureText: false,
                   controller: _email,
-                  validator: validator.validateEmail,
                 ),
                 InputBox(
                   name: "Password",
                   obscureText: false,
                   controller: _password,
-                  validator: validator.validatePassword,
                 ),
                 InputBox(
                   name: "Repeat Password",
                   obscureText: false,
                   controller: _repeatPassword,
-                  validator: validator.validatePassword,
                 ),
                 SizedBox(height: 20),
                 KeppButton(

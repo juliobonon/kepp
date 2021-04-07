@@ -17,6 +17,8 @@ class KeppButton extends StatelessWidget {
       child: Text(name, style: TextStyle(fontSize: 24, color: Colors.red)),
       style: ElevatedButton.styleFrom(
         primary: Colors.transparent,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         side: BorderSide(
           color: Colors.red,
           width: 2,

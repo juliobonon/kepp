@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kepp/rootPage.dart';
-import 'package:kepp/services/auth.dart';
-import 'package:kepp/services/emailValidator.dart';
+import 'package:kepp/pages/initial.dart';
+import 'package:kepp/wrapper.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -9,9 +8,11 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
+        return MaterialPageRoute(builder: (_) => AuthWrapper());
+      case '/initialRoute':
         return MaterialPageRoute(
-            builder: (_) =>
-                RootPage(auth: new Auth(), validator: new Validator()));
+          builder: (_) => InitialPage(),
+        );
 
       // If args is not of the correct type, return an error page.
       // You can also throw an exception while in development.

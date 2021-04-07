@@ -1,29 +1,35 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class BaseAuth {
-  Future<User> signInWithEmailAndPassword(String email, String password);
-  Future<User> createUserWithEmailandPassword(String email, String password);
-  Future<String> currentUser();
+  Future<String> signInWithEmailAndPassword(String email, String password);
+  Future<String> createUserWithEmailandPassword(String email, String password);
+  Stream<User> get authStateChanges;
   Future<void> signOut();
 }
 
 class Auth implements BaseAuth {
-  Future<User> signInWithEmailAndPassword(String email, String password) async {
-    UserCredential user = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password);
-    return user.user;
-  }
+  Stream<User> get authStateChanges => FirebaseAuth.instance.authStateChanges();
 
-  Future<User> createUserWithEmailandPassword(
+  Future<String> signInWithEmailAndPassword(
       String email, String password) async {
-    UserCredential user = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email, password: password);
-    return user.user;
+    try {
+      UserCredential user = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      return 'Logado';
+    } catch (e) {
+      return e.message;
+    }
   }
 
-  Future<String> currentUser() async {
-    User user = await FirebaseAuth.instance.currentUser;
-    return user.uid;
+  Future<String> createUserWithEmailandPassword(
+      String email, String password) async {
+    try {
+      UserCredential user = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      return 'Logado';
+    } catch (e) {
+      return e.message;
+    }
   }
 
   Future<void> signOut() async {
