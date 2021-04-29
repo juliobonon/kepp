@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kepp/components/componentDropdown.dart';
 import 'package:kepp/components/keppButton.dart';
 import 'package:kepp/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +9,16 @@ class CreateBuild extends StatefulWidget {
 }
 
 class _CreateBuildState extends State<CreateBuild> {
+  TextEditingController buildName = TextEditingController();
+  String pcbName = '';
+  String switchName = '';
+  String keycapName = '';
+  String caseName = '';
+  List<String> pcbList = ['', 'DZ60RGB-ANSI V2', 'DZ60 V3 60%'];
+  List<String> switchList = ['', 'Cherry', 'Gateron', 'Outemu'];
+  List<String> keycapList = ['', 'OEM', 'G-ABS', 'G-PBT'];
+  List<String> caseList = ['', '60% Silver CNC', '60% Plastic KB'];
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -67,31 +76,170 @@ class _CreateBuildState extends State<CreateBuild> {
                   ),
                   SizedBox(
                     width: 200,
-                    child: TextFormField(),
+                    child: TextFormField(
+                      controller: buildName,
+                    ),
                   ),
                   SizedBox(height: 20),
-                  ComponentDropdown(
-                    componentName: 'PCB',
-                    componentList: ['Cherry', 'Gateron', 'Outemu', 'Pandas'],
+                  Container(
+                    child: Container(
+                      width: 280,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'PCB',
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                            SizedBox(width: 50),
+                            DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: pcbName,
+                                items: pcbList
+                                    .map((String code) =>
+                                        new DropdownMenuItem<String>(
+                                            value: code,
+                                            child: new Text(
+                                              code,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )))
+                                    .toList(),
+                                onChanged: (newvalue) => setState(() {
+                                  pcbName = newvalue;
+                                }),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(height: 20),
-                  ComponentDropdown(
-                    componentName: 'Switch',
-                    componentList: ['Cherry', 'Gateron', 'Outemu', 'Pandas'],
+                  Container(
+                    child: Container(
+                      width: 280,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Switch',
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                            SizedBox(width: 50),
+                            DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: switchName,
+                                items: switchList
+                                    .map((String code) =>
+                                        new DropdownMenuItem<String>(
+                                            value: code,
+                                            child: new Text(
+                                              code,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )))
+                                    .toList(),
+                                onChanged: (newvalue) => setState(() {
+                                  switchName = newvalue;
+                                }),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(height: 20),
-                  ComponentDropdown(
-                    componentName: 'Keycap',
-                    componentList: ['Cherry', 'Gateron', 'Outemu', 'Pandas'],
+                  Container(
+                    child: Container(
+                      width: 280,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Keycap',
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                            SizedBox(width: 50),
+                            DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: keycapName,
+                                items: keycapList
+                                    .map((String code) =>
+                                        new DropdownMenuItem<String>(
+                                            value: code,
+                                            child: new Text(
+                                              code,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )))
+                                    .toList(),
+                                onChanged: (newvalue) => setState(() {
+                                  keycapName = newvalue;
+                                }),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(height: 20),
-                  ComponentDropdown(
-                    componentName: 'Case',
-                    componentList: ['Cherry', 'Gateron', 'Outemu', 'Pandas'],
+                  Container(
+                    child: Container(
+                      width: 280,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Case',
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                            SizedBox(width: 50),
+                            DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: caseName,
+                                items: caseList
+                                    .map((String code) =>
+                                        new DropdownMenuItem<String>(
+                                            value: code,
+                                            child: new Text(
+                                              code,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )))
+                                    .toList(),
+                                onChanged: (newvalue) => setState(() {
+                                  caseName = newvalue;
+                                }),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(height: 20),
                   KeppButton(
                     name: 'PUBLISH',
+                    onpressed: () => print(pcbName),
                   )
                 ],
               ),
