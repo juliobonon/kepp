@@ -4,16 +4,16 @@ class KeppButton extends StatelessWidget {
   const KeppButton({
     Key key,
     this.name,
-    this.function,
+    this.onpressed,
   }) : super(key: key);
 
   final name;
-  final function;
+  final onpressed;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: function,
+      onPressed: onpressed,
       child: Text(name, style: TextStyle(fontSize: 24, color: Colors.red)),
       style: ElevatedButton.styleFrom(
         primary: Colors.transparent,
