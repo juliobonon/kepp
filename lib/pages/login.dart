@@ -112,7 +112,7 @@ class _LoginState extends State<Login> {
                   children: [
                     KeppButton(
                       name: "LOGIN",
-                      function: validateAndSubmit,
+                      onpressed: validateAndSubmit,
                     ),
                     SizedBox(width: 25),
                     Text(
@@ -189,7 +189,7 @@ class _LoginState extends State<Login> {
                 SizedBox(height: 20),
                 KeppButton(
                   name: "SIGN UP",
-                  function: validateAndSubmit,
+                  onpressed: validateAndSubmit,
                 ),
                 TextButton(
                     child: Text(

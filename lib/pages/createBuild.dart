@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kepp/components/keppButton.dart';
 import 'package:kepp/services/auth.dart';
@@ -78,6 +79,8 @@ class _CreateBuildState extends State<CreateBuild> {
                     width: 200,
                     child: TextFormField(
                       controller: buildName,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20.0),
                     ),
                   ),
                   SizedBox(height: 20),
@@ -239,7 +242,18 @@ class _CreateBuildState extends State<CreateBuild> {
                   SizedBox(height: 20),
                   KeppButton(
                     name: 'PUBLISH',
-                    onpressed: () => print(pcbName),
+                    onpressed: () {
+                      CollectionReference builds =
+                          FirebaseFirestore.instance.collection('builds');
+                      builds.add(
+                        {
+                          'name': buildName.text,
+                          'PCB': pcbName.toString(),
+                          'switch': switchName.toString(),
+                          'keycap': keycapName.toString(),
+                        },
+                      );
+                    },
                   )
                 ],
               ),

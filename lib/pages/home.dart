@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kepp/models/keyboard.dart';
+import 'package:kepp/providers/builds_provider.dart';
 import 'package:kepp/services/auth.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
-  Home({this.auth, this.onSignedOut});
-
-  final BaseAuth auth;
-  final VoidCallback onSignedOut;
-
   @override
   _HomeState createState() => _HomeState();
 }
@@ -15,10 +12,14 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    final keyboardBuilds = Provider.of<BuildProvider>(context);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Padding(
+            padding: EdgeInsets.all(10),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -55,30 +56,52 @@ class _HomeState extends State<Home> {
               )
             ],
           ),
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Welcome, User!',
-                      style: TextStyle(fontSize: 30.0, color: Colors.white),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Recently Added',
-                      style: TextStyle(fontSize: 20.0, color: Colors.white),
-                    ),
-                  ),
-                ],
-              ),
+          Expanded(
+            child: StreamBuilder<List<KeyboardBuild>>(
+              stream: keyboardBuilds.products,
+              builder: (context, snapshot) {
+                return keyboardBuilds != null
+                    ? ListView.builder(
+                        padding: EdgeInsets.all(10),
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: false,
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              width: 200,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Color(0xff718296),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(snapshot.data[index].name.toString()),
+                                  Text(snapshot.data[index].keycap.toString()),
+                                  Text(snapshot.data[index].keyboardswitch
+                                      .toString()),
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                          icon: Icon(Icons.favorite),
+                                          onPressed: () {}),
+                                      IconButton(
+                                          icon: Icon(Icons.save),
+                                          onPressed: () {}),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                    : CircularProgressIndicator();
+              },
             ),
-          ),
+          )
         ],
       ),
     );

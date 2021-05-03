@@ -38,7 +38,7 @@ class InitialPage extends StatelessWidget {
             SizedBox(height: 50),
             KeppButton(
               name: 'Get Started',
-              function: () {
+              onpressed: () {
                 Navigator.pushNamed(context, '/');
               },
             ),

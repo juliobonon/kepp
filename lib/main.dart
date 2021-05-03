@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kepp/providers/builds_provider.dart';
 import 'package:kepp/routegenerator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:kepp/services/auth.dart';
@@ -19,6 +20,9 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<Auth>(
           create: (_) => Auth(),
+        ),
+        Provider<BuildProvider>(
+          create: (_) => BuildProvider(),
         ),
         Provider<Validator>(
           create: (_) => Validator(),
