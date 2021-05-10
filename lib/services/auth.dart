@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:kepp/services/database.dart';
 
 abstract class BaseAuth {
   Future<String> signInWithEmailAndPassword(String email, String password);
-  Future<String> createUserWithEmailandPassword(String email, String password);
+  Future<String> createUserWithEmailandPassword(
+      String user, String email, String password);
   Stream<User> get authStateChanges;
   Future<void> signOut();
 }
@@ -22,10 +24,11 @@ class Auth implements BaseAuth {
   }
 
   Future<String> createUserWithEmailandPassword(
-      String email, String password) async {
+      String username, String email, String password) async {
     try {
       UserCredential user = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+      await DatabaseService(uid: user.user.uid).updateUserData(username);
       return 'Logado';
     } catch (e) {
       return e.message;
