@@ -3,6 +3,7 @@ import 'package:kepp/providers/builds_provider.dart';
 import 'package:kepp/routegenerator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:kepp/services/auth.dart';
+import 'package:kepp/services/database.dart';
 import 'package:kepp/services/emailValidator.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
         ),
         Provider<Validator>(
           create: (_) => Validator(),
+        ),
+        Provider<DatabaseService>(
+          create: (_) => DatabaseService(),
         ),
         StreamProvider(
           create: (context) => context.read<Auth>().authStateChanges,
