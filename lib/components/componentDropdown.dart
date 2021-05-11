@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 
-class ComponentDropdown extends StatelessWidget {
-  ComponentDropdown(
-      {this.componentName, this.componentList, this.selectedValue});
+class ComponentDropdown extends StatefulWidget {
+  ComponentDropdown({
+    this.componentName,
+    this.componentList,
+    this.selectedValue,
+  });
 
   final String componentName;
   final List<String> componentList;
-  final String selectedValue;
+  String selectedValue;
 
+  @override
+  _ComponentDropdownState createState() => _ComponentDropdownState();
+}
+
+class _ComponentDropdownState extends State<ComponentDropdown> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,14 +26,14 @@ class ComponentDropdown extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              componentName,
+              widget.componentName,
               style: TextStyle(fontSize: 20.0),
             ),
             SizedBox(width: 50),
             DropdownButtonHideUnderline(
               child: DropdownButton<String>(
-                value: selectedValue,
-                items: componentList
+                value: widget.selectedValue,
+                items: widget.componentList
                     .map((String code) => new DropdownMenuItem<String>(
                         value: code,
                         child: new Text(
@@ -33,7 +41,11 @@ class ComponentDropdown extends StatelessWidget {
                           style: TextStyle(color: Colors.white),
                         )))
                     .toList(),
-                onChanged: (code) => selectedValue,
+                onChanged: (code) => setState(
+                  () {
+                    widget.selectedValue = code;
+                  },
+                ),
               ),
             ),
           ],

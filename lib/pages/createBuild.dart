@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:kepp/components/alertDialog.dart';
 import 'package:kepp/components/keppButton.dart';
 import 'package:kepp/services/auth.dart';
+import 'package:kepp/services/database.dart';
 import 'package:provider/provider.dart';
 
 class CreateBuild extends StatefulWidget {
@@ -19,6 +21,23 @@ class _CreateBuildState extends State<CreateBuild> {
   List<String> switchList = ['', 'Cherry', 'Gateron', 'Outemu'];
   List<String> keycapList = ['', 'OEM', 'G-ABS', 'G-PBT'];
   List<String> caseList = ['', '60% Silver CNC', '60% Plastic KB'];
+
+  void publishBuild() {
+    try {
+      FirebaseFirestore.instance.collection('builds').add(
+        {
+          'name': buildName.text,
+          'PCB': pcbName.toString(),
+          'switch': switchName.toString(),
+          'keycap': keycapName.toString(),
+        },
+      );
+      showAlertDialog(
+          context, 'Sua build foi criada com sucesso: ' + buildName.text);
+    } catch (e) {
+      showAlertDialog(context, 'Problema em criar a build');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +65,6 @@ class _CreateBuildState extends State<CreateBuild> {
                     Row(
                       children: [
                         SizedBox(width: 10),
-                        Text(
-                          'User',
-                          style: TextStyle(color: Colors.white, fontSize: 20.0),
-                        ),
                         IconButton(
                           icon: Icon(Icons.logout),
                           color: Colors.white,
@@ -88,7 +103,8 @@ class _CreateBuildState extends State<CreateBuild> {
                     child: Container(
                       width: 280,
                       decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white)),
+                        border: Border.all(color: Colors.white),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10),
                         child: Row(
@@ -242,18 +258,7 @@ class _CreateBuildState extends State<CreateBuild> {
                   SizedBox(height: 20),
                   KeppButton(
                     name: 'PUBLISH',
-                    onpressed: () {
-                      CollectionReference builds =
-                          FirebaseFirestore.instance.collection('builds');
-                      builds.add(
-                        {
-                          'name': buildName.text,
-                          'PCB': pcbName.toString(),
-                          'switch': switchName.toString(),
-                          'keycap': keycapName.toString(),
-                        },
-                      );
-                    },
+                    onpressed: publishBuild,
                   )
                 ],
               ),

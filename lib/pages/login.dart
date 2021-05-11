@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kepp/components/alertDialog.dart';
 import 'package:kepp/services/auth.dart';
 import 'package:kepp/components/input.dart';
 import 'package:kepp/services/emailValidator.dart';
@@ -34,15 +35,18 @@ class _LoginState extends State<Login> {
           String status = await context
               .read<Auth>()
               .signInWithEmailAndPassword(_email.text, _password.text);
-          print('Status: ' + status);
+          if (status != 'Logado') {
+            showAlertDialog(context, status);
+          }
         } catch (e) {
-          print(e);
+          showAlertDialog(context, e);
         }
       } else {
         try {
           String status = await context
               .read<Auth>()
-              .createUserWithEmailandPassword(_email.text, _password.text);
+              .createUserWithEmailandPassword(
+                  _user.text, _email.text, _password.text);
           print('Status: ' + status);
         } catch (e) {
           print(e);

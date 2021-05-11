@@ -60,45 +60,46 @@ class _HomeState extends State<Home> {
             child: StreamBuilder<List<KeyboardBuild>>(
               stream: keyboardBuilds.products,
               builder: (context, snapshot) {
-                return keyboardBuilds != null
-                    ? ListView.builder(
-                        padding: EdgeInsets.all(10),
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: false,
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              width: 200,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                color: Color(0xff718296),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Column(
+                if (keyboardBuilds != null) {
+                  return ListView.builder(
+                    padding: EdgeInsets.all(10),
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: false,
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: 200,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: Color(0xff718296),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            children: [
+                              Text(snapshot.data[index].name.toString()),
+                              Text(snapshot.data[index].keycap.toString()),
+                              Text(snapshot.data[index].keyboardswitch
+                                  .toString()),
+                              Row(
                                 children: [
-                                  Text(snapshot.data[index].name.toString()),
-                                  Text(snapshot.data[index].keycap.toString()),
-                                  Text(snapshot.data[index].keyboardswitch
-                                      .toString()),
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                          icon: Icon(Icons.favorite),
-                                          onPressed: () {}),
-                                      IconButton(
-                                          icon: Icon(Icons.save),
-                                          onPressed: () {}),
-                                    ],
-                                  )
+                                  IconButton(
+                                      icon: Icon(Icons.favorite),
+                                      onPressed: () {}),
+                                  IconButton(
+                                      icon: Icon(Icons.save), onPressed: () {}),
                                 ],
-                              ),
-                            ),
-                          );
-                        },
-                      )
-                    : CircularProgressIndicator();
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                } else {
+                  return CircularProgressIndicator();
+                }
               },
             ),
           )
