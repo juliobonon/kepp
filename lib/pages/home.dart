@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kepp/components/buildDialog.dart';
 import 'package:kepp/models/keyboard.dart';
 import 'package:kepp/providers/builds_provider.dart';
 import 'package:kepp/services/auth.dart';
@@ -13,6 +14,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final keyboardBuilds = Provider.of<BuildProvider>(context);
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -71,27 +73,60 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           width: 200,
-                          height: 100,
                           decoration: BoxDecoration(
-                            color: Color(0xff718296),
+                            color: Color(0xff324152),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Column(
-                            children: [
-                              Text(snapshot.data[index].name.toString()),
-                              Text(snapshot.data[index].keycap.toString()),
-                              Text(snapshot.data[index].keyboardswitch
-                                  .toString()),
-                              Row(
-                                children: [
-                                  IconButton(
-                                      icon: Icon(Icons.favorite),
-                                      onPressed: () {}),
-                                  IconButton(
-                                      icon: Icon(Icons.save), onPressed: () {}),
-                                ],
-                              )
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "User publicou uma nova build",
+                                    style: TextStyle(fontSize: 25.0),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Column(
+                                    children: [
+                                      Text('Nome: ' +
+                                          snapshot.data[index].name.toString()),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Row(
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(Icons.favorite),
+                                        onPressed: () {},
+                                      ),
+                                      IconButton(
+                                        icon: Icon(Icons.save),
+                                        onPressed: () {},
+                                      ),
+                                      IconButton(
+                                        icon: Icon(Icons.arrow_forward),
+                                        onPressed: () {
+                                          showBuildDialog(
+                                              context, snapshot.data[index]);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );

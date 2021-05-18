@@ -29,6 +29,6 @@ class KeyboardBuild {
         keyboardswitch: json['switch'],
         keycap: json['keycap'],
         pcb: json['PCB'],
-        keyboardcase: json['keyboardcase']);
+        keyboardcase: json['case']);
   }
 }

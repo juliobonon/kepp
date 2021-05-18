@@ -23,19 +23,28 @@ class _CreateBuildState extends State<CreateBuild> {
   List<String> caseList = ['', '60% Silver CNC', '60% Plastic KB'];
 
   void publishBuild() {
-    try {
-      FirebaseFirestore.instance.collection('builds').add(
-        {
-          'name': buildName.text,
-          'PCB': pcbName.toString(),
-          'switch': switchName.toString(),
-          'keycap': keycapName.toString(),
-        },
-      );
-      showAlertDialog(
-          context, 'Sua build foi criada com sucesso: ' + buildName.text);
-    } catch (e) {
-      showAlertDialog(context, 'Problema em criar a build');
+    if (buildName.text.isEmpty ||
+        pcbName.isEmpty ||
+        switchName.isEmpty ||
+        keycapName.isEmpty ||
+        caseName.isEmpty) {
+      showAlertDialog(context, "Nenhum componente pode ser vazio");
+    } else {
+      try {
+        FirebaseFirestore.instance.collection('builds').add(
+          {
+            'name': buildName.text,
+            'PCB': pcbName.toString(),
+            'switch': switchName.toString(),
+            'keycap': keycapName.toString(),
+            'case': caseName.toString(),
+          },
+        );
+        showAlertDialog(
+            context, 'Sua build foi criada com sucesso: ' + buildName.text);
+      } catch (e) {
+        showAlertDialog(context, 'Problema em criar a build');
+      }
     }
   }
 
