@@ -1,6 +1,6 @@
 class KeyboardBuild {
   String name;
-
+  String userUid;
   String keyboardswitch;
   String keycap;
   String pcb;
@@ -8,6 +8,7 @@ class KeyboardBuild {
 
   KeyboardBuild(
       {this.name,
+      this.userUid,
       this.keyboardswitch,
       this.keycap,
       this.pcb,
@@ -16,6 +17,7 @@ class KeyboardBuild {
   Map<String, dynamic> toMap() {
     return {
       'name': name,
+      'userUid': userUid,
       'keyboardswitch': keyboardswitch,
       'keycap': keycap,
       'pcb': pcb,
@@ -26,6 +28,7 @@ class KeyboardBuild {
   factory KeyboardBuild.fromJson(Map<String, dynamic> json) {
     return KeyboardBuild(
         name: json['name'],
+        userUid: json['userUid'],
         keyboardswitch: json['switch'],
         keycap: json['keycap'],
         pcb: json['PCB'],
