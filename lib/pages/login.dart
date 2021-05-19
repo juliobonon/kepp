@@ -145,7 +145,9 @@ class _LoginState extends State<Login> {
                     "Click here to continue without an account",
                     style: TextStyle(color: Color(0xFF556678)),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/anon');
+                  },
                 ),
               ],
             ),
@@ -171,25 +173,41 @@ class _LoginState extends State<Login> {
                   style: TextStyle(color: Color(0xFFef492f), fontSize: 24),
                 ),
                 InputBox(
-                  name: "User",
-                  obscureText: false,
-                  controller: _user,
-                ),
+                    name: "User",
+                    obscureText: false,
+                    controller: _user,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "User não pode ser vázio";
+                      }
+                    }),
                 InputBox(
-                  name: "Email",
-                  obscureText: false,
-                  controller: _email,
-                ),
+                    name: "Email",
+                    obscureText: false,
+                    controller: _email,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "Email não pode ser vázio";
+                      }
+                    }),
                 InputBox(
-                  name: "Password",
-                  obscureText: false,
-                  controller: _password,
-                ),
+                    name: "Password",
+                    obscureText: false,
+                    controller: _password,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "Password não pode ser vázio";
+                      }
+                    }),
                 InputBox(
-                  name: "Repeat Password",
-                  obscureText: false,
-                  controller: _repeatPassword,
-                ),
+                    name: "Repeat Password",
+                    obscureText: false,
+                    controller: _repeatPassword,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "Repeat Password não pode ser vázio";
+                      }
+                    }),
                 SizedBox(height: 20),
                 KeppButton(
                   name: "SIGN UP",

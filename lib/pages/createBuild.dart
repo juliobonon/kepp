@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kepp/components/alertDialog.dart';
 import 'package:kepp/components/keppButton.dart';
 import 'package:kepp/services/auth.dart';
-import 'package:kepp/services/database.dart';
 import 'package:provider/provider.dart';
 
 class CreateBuild extends StatefulWidget {
@@ -13,6 +13,7 @@ class CreateBuild extends StatefulWidget {
 
 class _CreateBuildState extends State<CreateBuild> {
   TextEditingController buildName = TextEditingController();
+  String uid = FirebaseAuth.instance.currentUser.uid;
   String pcbName = '';
   String switchName = '';
   String keycapName = '';
@@ -34,6 +35,7 @@ class _CreateBuildState extends State<CreateBuild> {
         FirebaseFirestore.instance.collection('builds').add(
           {
             'name': buildName.text,
+            'userUid': uid,
             'PCB': pcbName.toString(),
             'switch': switchName.toString(),
             'keycap': keycapName.toString(),
@@ -67,7 +69,7 @@ class _CreateBuildState extends State<CreateBuild> {
                     CircleAvatar(
                       minRadius: 20,
                       child: Image(
-                        width: 80,
+                        width: 50,
                         image: AssetImage('imgs/avatar.png'),
                       ),
                     ),
