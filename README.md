@@ -2,6 +2,9 @@
 
 Um aplicativo para entusiastas de teclados mecânicos. Recomendação e desenvolvimento de builds personalizadas com o apoio da comunidade.
 
+
+![](docs/demo.gif)
+
 # roles
 
 - documentação [Maite Rafaelli](https://github.com/maracaren)
