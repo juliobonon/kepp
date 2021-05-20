@@ -112,7 +112,8 @@ class _CreateBuildState extends State<CreateBuild> {
                   SizedBox(height: 20),
                   Container(
                     child: Container(
-                      width: 280,
+                      width: 330,
+                      height: 60,
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.white),
                       ),
@@ -121,6 +122,10 @@ class _CreateBuildState extends State<CreateBuild> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            Image.asset(
+                              'imgs/pcb.png',
+                              width: 60,
+                            ),
                             Text(
                               'PCB',
                               style: TextStyle(fontSize: 20.0),
@@ -152,7 +157,8 @@ class _CreateBuildState extends State<CreateBuild> {
                   SizedBox(height: 20),
                   Container(
                     child: Container(
-                      width: 280,
+                      width: 330,
+                      height: 60,
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.white)),
                       child: Padding(
@@ -160,6 +166,10 @@ class _CreateBuildState extends State<CreateBuild> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            Image.asset(
+                              'imgs/switch.png',
+                              width: 60,
+                            ),
                             Text(
                               'Switch',
                               style: TextStyle(fontSize: 20.0),
@@ -191,7 +201,8 @@ class _CreateBuildState extends State<CreateBuild> {
                   SizedBox(height: 20),
                   Container(
                     child: Container(
-                      width: 280,
+                      width: 330,
+                      height: 60,
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.white)),
                       child: Padding(
@@ -199,6 +210,10 @@ class _CreateBuildState extends State<CreateBuild> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            Image.asset(
+                              'imgs/keycap.png',
+                              width: 50,
+                            ),
                             Text(
                               'Keycap',
                               style: TextStyle(fontSize: 20.0),
@@ -230,7 +245,8 @@ class _CreateBuildState extends State<CreateBuild> {
                   SizedBox(height: 20),
                   Container(
                     child: Container(
-                      width: 280,
+                      width: 330,
+                      height: 60,
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.white)),
                       child: Padding(
@@ -238,6 +254,10 @@ class _CreateBuildState extends State<CreateBuild> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            Image.asset(
+                              'imgs/case.png',
+                              width: 80,
+                            ),
                             Text(
                               'Case',
                               style: TextStyle(fontSize: 20.0),
