@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kepp/components/buildDialog.dart';
 import 'package:kepp/models/keyboard.dart';
@@ -15,6 +16,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final keyboardBuilds = Provider.of<BuildProvider>(context);
+    var uid = FirebaseAuth.instance.currentUser.uid;
 
     return Center(
       child: Column(
@@ -42,9 +44,21 @@ class _HomeState extends State<Home> {
                   Row(
                     children: [
                       SizedBox(width: 10),
-                      Text(
-                        'User',
-                        style: TextStyle(color: Colors.white, fontSize: 20.0),
+                      StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(uid)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.data != null) {
+                            return Text(
+                              snapshot.data['name'],
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 20.0),
+                            );
+                          }
+                          return CircularProgressIndicator();
+                        },
                       ),
                       IconButton(
                         icon: Icon(Icons.logout),
