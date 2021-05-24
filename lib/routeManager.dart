@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kepp/pages/createBuild.dart';
 import 'package:kepp/pages/home.dart';
-import 'package:kepp/pages/savedBuilds.dart';
+import 'package:kepp/pages/profile.dart';
 
 class RouteManager extends StatefulWidget {
   @override
@@ -13,7 +13,7 @@ class _RouteManagerState extends State<RouteManager> {
   final _pageOptions = [
     CreateBuild(),
     Home(),
-    SavedBuilds(),
+    Profile(),
   ];
 
   @override
