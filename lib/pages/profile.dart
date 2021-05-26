@@ -73,7 +73,9 @@ class _ProfileState extends State<Profile> {
         ProfileBox(
           title: "Minhas builds",
           text: "Visualize sua lista de builds criadas em apenas um clique.",
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, '/myBuilds');
+          },
         ),
         SizedBox(height: 10),
         ProfileBox(

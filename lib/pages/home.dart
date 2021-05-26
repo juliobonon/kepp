@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kepp/components/buildDialog.dart';
+import 'package:kepp/components/userText.dart';
 import 'package:kepp/models/keyboard.dart';
 import 'package:kepp/providers/builds_provider.dart';
 import 'package:kepp/services/auth.dart';
@@ -88,6 +89,20 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  var uid = FirebaseAuth.instance.currentUser.uid;
+
+  Future<void> saveBuild(String uid, KeyboardBuild build) {
+    return users.doc(uid).collection('builds').add({
+      'name': build.name,
+      'userUid': build.userUid,
+      'PCB': build.pcb,
+      'switch': build.keyboardswitch,
+      'keycap': build.keycap,
+      'case': build.keyboardcase,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -141,7 +156,12 @@ class _DashBoardState extends State<DashBoard> {
                                 ),
                                 IconButton(
                                   icon: Icon(Icons.save),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    saveBuild(
+                                      uid,
+                                      snapshot.data[index],
+                                    );
+                                  },
                                 ),
                                 IconButton(
                                   icon: Icon(Icons.arrow_forward),
@@ -163,39 +183,6 @@ class _DashBoardState extends State<DashBoard> {
           }
         },
       ),
-    );
-  }
-}
-
-class UserText extends StatefulWidget {
-  UserText(this.uid);
-  final String uid;
-  @override
-  _UserTextState createState() => _UserTextState();
-}
-
-class _UserTextState extends State<UserText> {
-  var name = "User";
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: FirebaseFirestore.instance
-          .collection('users')
-          .doc(widget.uid)
-          .snapshots(),
-      builder: (context, snapshot) {
-        if (snapshot.data != null) {
-          name = snapshot.data['name'] != null ? snapshot.data['name'] : "User";
-          return Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              name + " postou uma build",
-              style: TextStyle(fontSize: 20.0),
-            ),
-          );
-        }
-        return CircularProgressIndicator();
-      },
     );
   }
 }

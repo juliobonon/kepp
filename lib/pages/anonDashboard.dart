@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kepp/pages/home.dart';
+import 'package:kepp/components/anonDashboard.dart';
 import 'package:kepp/providers/builds_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -56,7 +56,7 @@ class AnonDashboard extends StatelessWidget {
                 ),
               ),
             ),
-            DashBoard(keyboardBuilds.products),
+            AnonDashboardComponent(keyboardBuilds.products),
           ],
         ),
       ),
