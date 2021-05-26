@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kepp/pages/anonDashboard.dart';
 import 'package:kepp/pages/initial.dart';
+import 'package:kepp/pages/myBuilds.dart';
+import 'package:kepp/pages/profile.dart';
 import 'package:kepp/wrapper.dart';
 
 class RouteGenerator {
@@ -18,6 +20,11 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => AnonDashboard(),
         );
+      case '/myBuilds':
+        return MaterialPageRoute(
+          builder: (_) => MyBuilds(),
+        );
+
       // If args is not of the correct type, return an error page.
       // You can also throw an exception while in development.
 
