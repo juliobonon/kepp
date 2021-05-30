@@ -94,12 +94,7 @@ class _DashBoardState extends State<DashBoard> {
 
   Future<void> saveBuild(String uid, KeyboardBuild build) {
     return users.doc(uid).collection('builds').add({
-      'name': build.name,
-      'userUid': build.userUid,
-      'PCB': build.pcb,
-      'switch': build.keyboardswitch,
-      'keycap': build.keycap,
-      'case': build.keyboardcase,
+      'buildID': build.buildID,
     });
   }
 
@@ -109,7 +104,7 @@ class _DashBoardState extends State<DashBoard> {
       child: StreamBuilder<List<KeyboardBuild>>(
         stream: widget.keyboardStream,
         builder: (context, snapshot) {
-          if (snapshot == null) {
+          if (!snapshot.hasData) {
             return CircularProgressIndicator();
           } else {
             return ListView.builder(
