@@ -93,9 +93,7 @@ class _DashBoardState extends State<DashBoard> {
   var uid = FirebaseAuth.instance.currentUser.uid;
 
   Future<void> saveBuild(String uid, KeyboardBuild build) {
-    return users.doc(uid).collection('builds').add({
-      'buildID': build.buildID,
-    });
+    return null;
   }
 
   @override
@@ -104,7 +102,7 @@ class _DashBoardState extends State<DashBoard> {
       child: StreamBuilder<List<KeyboardBuild>>(
         stream: widget.keyboardStream,
         builder: (context, snapshot) {
-          if (!snapshot.hasData) {
+          if (snapshot.data == null) {
             return CircularProgressIndicator();
           } else {
             return ListView.builder(
@@ -152,10 +150,17 @@ class _DashBoardState extends State<DashBoard> {
                                 IconButton(
                                   icon: Icon(Icons.save),
                                   onPressed: () {
-                                    saveBuild(
-                                      uid,
-                                      snapshot.data[index],
-                                    );
+                                    if (snapshot.data[index].favorites
+                                        .contains(uid)) {
+                                      snapshot.data[index].favorites
+                                          .remove(uid);
+                                    } else {
+                                      snapshot.data[index].favorites.add(uid);
+                                    }
+                                    FirebaseFirestore.instance
+                                        .collection("builds")
+                                        .doc(snapshot.data[index].id)
+                                        .update(snapshot.data[index].toMap());
                                   },
                                 ),
                                 IconButton(

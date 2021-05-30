@@ -102,11 +102,13 @@ class _LoginState extends State<Login> {
                 ),
                 InputBox(
                   name: "Email",
+                  hintText: 'test@email.com',
                   obscureText: false,
                   controller: _email,
                 ),
                 InputBox(
                   name: "Password",
+                  hintText: '********',
                   obscureText: true,
                   controller: _password,
                 ),
@@ -129,7 +131,7 @@ class _LoginState extends State<Login> {
                         primary: Colors.transparent,
                       ),
                       child: Text(
-                        "Sign in",
+                        "Sign up",
                         style: TextStyle(color: Colors.red, fontSize: 24),
                       ),
                       onPressed: () {
@@ -174,6 +176,7 @@ class _LoginState extends State<Login> {
                 ),
                 InputBox(
                     name: "User",
+                    hintText: "John12",
                     obscureText: false,
                     controller: _user,
                     validator: (value) {
@@ -183,6 +186,7 @@ class _LoginState extends State<Login> {
                     }),
                 InputBox(
                     name: "Email",
+                    hintText: 'test@email.com',
                     obscureText: false,
                     controller: _email,
                     validator: (value) {
@@ -192,6 +196,7 @@ class _LoginState extends State<Login> {
                     }),
                 InputBox(
                     name: "Password",
+                    hintText: '******',
                     obscureText: false,
                     controller: _password,
                     validator: (value) {
@@ -201,6 +206,7 @@ class _LoginState extends State<Login> {
                     }),
                 InputBox(
                     name: "Repeat Password",
+                    hintText: '******',
                     obscureText: false,
                     controller: _repeatPassword,
                     validator: (value) {

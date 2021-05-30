@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 
 class InputBox extends StatelessWidget {
   const InputBox(
-      {Key key, this.name, this.obscureText, this.controller, this.validator})
+      {Key key,
+      this.name,
+      this.obscureText,
+      this.controller,
+      this.validator,
+      this.hintText})
       : super(key: key);
 
   final name;
   final obscureText;
   final controller;
   final validator;
+  final hintText;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +26,7 @@ class InputBox extends StatelessWidget {
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Color(0xFFef492f)),
           ),
+          hintText: hintText,
           labelText: name,
           focusColor: Color(0xFFef492f),
           labelStyle: TextStyle(

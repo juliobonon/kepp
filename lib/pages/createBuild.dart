@@ -1,3 +1,4 @@
+import 'package:uuid/uuid.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +33,10 @@ class _CreateBuildState extends State<CreateBuild> {
       showAlertDialog(context, "Nenhum componente pode ser vazio");
     } else {
       try {
+        var uuid = Uuid();
         FirebaseFirestore.instance.collection('builds').add(
           {
+            'buildID': uuid.v1(),
             'name': buildName.text,
             'userUid': uid,
             'PCB': pcbName.toString(),
@@ -257,6 +260,7 @@ class _CreateBuildState extends State<CreateBuild> {
                             Image.asset(
                               'imgs/case.png',
                               width: 80,
+                              color: Colors.white,
                             ),
                             Text(
                               'Case',
