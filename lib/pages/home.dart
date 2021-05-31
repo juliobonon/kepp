@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:kepp/components/alertDialog.dart';
 import 'package:kepp/components/buildDialog.dart';
 import 'package:kepp/components/userText.dart';
 import 'package:kepp/models/keyboard.dart';
@@ -74,6 +75,16 @@ class _HomeState extends State<Home> {
               )
             ],
           ),
+          Padding(
+            padding: const EdgeInsets.only(left: 25),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Dashboard',
+                style: TextStyle(fontSize: 30),
+              ),
+            ),
+          ),
           DashBoard(keyboardBuilds.products),
         ],
       ),
@@ -91,7 +102,7 @@ class DashBoard extends StatefulWidget {
 class _DashBoardState extends State<DashBoard> {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   var uid = FirebaseAuth.instance.currentUser.uid;
-
+  var icon;
   Future<void> saveBuild(String uid, KeyboardBuild build) {
     return null;
   }
@@ -111,6 +122,15 @@ class _DashBoardState extends State<DashBoard> {
               shrinkWrap: false,
               itemCount: snapshot?.data?.length ?? 0,
               itemBuilder: (context, index) {
+                if (snapshot.data[index].favorites.contains(uid)) {
+                  icon = Icon(Icons.save_outlined);
+                } else {
+                  if (uid == snapshot.data[index].userUid) {
+                    icon = SizedBox.shrink();
+                  } else {
+                    icon = Icon(Icons.save);
+                  }
+                }
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -120,7 +140,7 @@ class _DashBoardState extends State<DashBoard> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.only(top: 20, left: 10),
                       child: Column(
                         children: [
                           UserText(snapshot.data[index].userUid),
@@ -139,38 +159,41 @@ class _DashBoardState extends State<DashBoard> {
                           SizedBox(
                             height: 10,
                           ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Row(
-                              children: [
-                                IconButton(
-                                  icon: Icon(Icons.favorite),
-                                  onPressed: () {},
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.save),
-                                  onPressed: () {
-                                    if (snapshot.data[index].favorites
-                                        .contains(uid)) {
-                                      snapshot.data[index].favorites
-                                          .remove(uid);
+                          Row(
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.favorite),
+                                onPressed: () {},
+                              ),
+                              IconButton(
+                                icon: icon,
+                                onPressed: () {
+                                  if (snapshot.data[index].favorites
+                                      .contains(uid)) {
+                                    snapshot.data[index].favorites.remove(uid);
+                                  } else {
+                                    if (uid == snapshot.data[index].userUid) {
+                                      showAlertDialog(context,
+                                          "Não é possivel salvar uma build pŕopria");
                                     } else {
                                       snapshot.data[index].favorites.add(uid);
                                     }
-                                    FirebaseFirestore.instance
-                                        .collection("builds")
-                                        .doc(snapshot.data[index].id)
-                                        .update(snapshot.data[index].toMap());
-                                  },
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.arrow_forward),
-                                  onPressed: () {
-                                    showBuildDialog(
-                                        context, snapshot.data[index]);
-                                  },
-                                ),
-                              ],
+                                  }
+                                  FirebaseFirestore.instance
+                                      .collection("builds")
+                                      .doc(snapshot.data[index].id)
+                                      .update(snapshot.data[index].toMap());
+                                },
+                              ),
+                            ],
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: IconButton(
+                              icon: Icon(Icons.arrow_forward),
+                              onPressed: () {
+                                showBuildDialog(context, snapshot.data[index]);
+                              },
                             ),
                           ),
                         ],
