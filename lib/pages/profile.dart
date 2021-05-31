@@ -81,7 +81,9 @@ class _ProfileState extends State<Profile> {
         ProfileBox(
           title: "Builds salvas",
           text: "Visualize sua lista de builds salvas em apenas um clique.",
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, '/savedBuilds');
+          },
         ),
       ],
     );

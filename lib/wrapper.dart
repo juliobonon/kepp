@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kepp/pages/login.dart';
 import 'package:kepp/routeManager.dart';
+import 'package:kepp/services/emailValidator.dart';
 import 'package:provider/provider.dart';
 
 class AuthWrapper extends StatelessWidget {
@@ -13,7 +14,7 @@ class AuthWrapper extends StatelessWidget {
     if (firebaseUser != null) {
       return RouteManager();
     } else {
-      return Login();
+      return Login(validator: new Validator());
     }
   }
 }

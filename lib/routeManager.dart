@@ -45,7 +45,7 @@ class _RouteManagerState extends State<RouteManager> {
           BottomNavigationBarItem(
             label: '',
             icon: Icon(
-              Icons.folder,
+              Icons.account_circle_sharp,
               color: Colors.white,
               size: 40,
             ),

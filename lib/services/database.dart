@@ -24,7 +24,7 @@ class DatabaseService {
 
   Stream<List<KeyboardBuild>> getProducts() {
     return _db.collection('builds').snapshots().map((snapshot) => snapshot.docs
-        .map((doc) => KeyboardBuild.fromJson(doc.data()))
+        .map((doc) => KeyboardBuild.fromJson(doc.data(), doc.id))
         .toList());
   }
 }

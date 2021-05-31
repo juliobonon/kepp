@@ -5,7 +5,6 @@ import 'package:kepp/components/buildDialog.dart';
 import 'package:kepp/components/userText.dart';
 import 'package:kepp/models/keyboard.dart';
 import 'package:kepp/providers/builds_provider.dart';
-import 'package:kepp/services/auth.dart';
 import 'package:provider/provider.dart';
 
 class MyBuilds extends StatefulWidget {
@@ -32,6 +31,17 @@ class _MyBuildsState extends State<MyBuilds> {
                 onPressed: () {
                   Navigator.pushNamed(context, "/");
                 },
+              ),
+            ),
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.only(left: 25),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Minhas Builds',
+                  style: TextStyle(fontSize: 25),
+                ),
               ),
             ),
             DashBoard(keyboardBuilds.products),

@@ -57,6 +57,7 @@ showBuildDialog(BuildContext context, KeyboardBuild build) {
             Image.asset(
               'imgs/case.png',
               width: 80,
+              color: Colors.white,
             ),
             SizedBox(width: 10),
             Text(build.keyboardcase),

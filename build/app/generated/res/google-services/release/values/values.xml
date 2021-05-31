@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">429320694151-dkdph4bcv6lvi1rp705ql52if4pkas8u.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">429320694151</string>
+    <string name="google_api_key" translatable="false">AIzaSyD0HovibE32n1Uw1JTgKv96j4uR7F0ujgQ</string>
+    <string name="google_app_id" translatable="false">1:429320694151:android:42b8cf9d39466f84b20b22</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyD0HovibE32n1Uw1JTgKv96j4uR7F0ujgQ</string>
+    <string name="google_storage_bucket" translatable="false">kepp-a742a.appspot.com</string>
+    <string name="project_id" translatable="false">kepp-a742a</string>
+</resources>

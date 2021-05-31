@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kepp/pages/anonDashboard.dart';
 import 'package:kepp/pages/initial.dart';
 import 'package:kepp/pages/myBuilds.dart';
-import 'package:kepp/pages/profile.dart';
+import 'package:kepp/pages/savedBuilds.dart';
 import 'package:kepp/wrapper.dart';
 
 class RouteGenerator {
@@ -23,6 +23,10 @@ class RouteGenerator {
       case '/myBuilds':
         return MaterialPageRoute(
           builder: (_) => MyBuilds(),
+        );
+      case '/savedBuilds':
+        return MaterialPageRoute(
+          builder: (_) => SavedBuilds(),
         );
 
       // If args is not of the correct type, return an error page.
